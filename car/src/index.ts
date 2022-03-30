@@ -1,8 +1,8 @@
 import { ApolloServer, gql } from "apollo-server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { readFileSync } from "fs";
-import { User, Users } from "./userConnector";
-// import { Resolvers, UserInput } from "./generated/graphql";
+import { Car, Cars } from "./db";
+// import { Resolvers, CarInput } from "./generated/graphql";
 
 const schema = readFileSync("./src/schema.gql", "utf-8");
 
@@ -10,33 +10,30 @@ const typeDefs = gql(schema);
 
 const resolvers /*: Resolvers*/ = {
   Mutation: {
-    async addUser(_, { userInput }: { userInput: User }) {
-      const newUser = new Users({
+    async addCar(_, { userInput }: { userInput: Car }) {
+      const newUser = new Cars({
         ...userInput,
       });
 
       await newUser.save();
       return newUser;
     },
-    async removeUser(_, { id }) {
-      await Users.deleteOne({ id });
+    async removeCar(_, { id }) {
+      await Cars.deleteOne({ id });
       return true;
     },
   },
   Query: {
-    async users() {
-      return Users.find();
+    async cars() {
+      return Cars.find();
     },
-    async user(_, { id }) {
-      return Users.findOne({ id });
-    },
-    async me() {
-      return { id: "1", username: "@ava" };
+    async car(_, { id }) {
+      return Cars.findOne({ id });
     },
   },
   User: {
-    async __resolveReference(user, { fetchUserById }) {
-      return fetchUserById(user.id);
+    async __resolveReference({ id }) {
+      return Cars.findOne({ id });
     },
   },
 };
@@ -45,6 +42,6 @@ const server = new ApolloServer({
   schema: buildSubgraphSchema({ typeDefs, resolvers }),
 });
 
-server.listen(4001).then(({ url }) => {
+server.listen(process.env.port).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });

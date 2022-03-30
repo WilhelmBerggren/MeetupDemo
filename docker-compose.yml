@@ -15,22 +15,26 @@ services:
       - ./users:/home/node/app/
     container_name: users
     command: yarn watch
+    environment:
+      - port=4001
     expose:
       - '4001'
     ports:
       - '4001:4001'
-  # cars:
-  #   build:
-  #     context: .
-  #     dockerfile: ./cars/Dockerfile
-  #   volumes:
-  #     - ./cars:/home/node/app/
-  #   container_name: cars
-  #   command: yarn watch
-  #   expose:
-  #     - '4002'
-  #   ports:
-  #     - '4002:4002'
+  cars:
+    build:
+      context: .
+      dockerfile: ./cars/Dockerfile
+    volumes:
+      - ./cars:/home/node/app/
+    container_name: cars
+    command: yarn watch
+    environment:
+      - port=4002
+    expose:
+      - '4002'
+    ports:
+      - '4002:4002'
   gateway:
     build:
       context: .
@@ -39,10 +43,14 @@ services:
       - ./gateway:/home/node/app/
     container_name: gateway
     command: yarn watch
+    environment:
+      - port=4000
+      - SERVICE_USERS=http://users:4001
+      - SERVICE_CARS=http://cars:4002
     expose:
       - '4000'
     ports:
       - '4000:4000'
     depends_on:
       - users
-      # - cars
+      - cars

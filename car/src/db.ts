@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-// import { User } from "./generated/graphql";
 
 mongoose.connect("mongodb://mongo:27017");
 
