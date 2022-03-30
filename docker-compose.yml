@@ -1,0 +1,48 @@
+version: '3.7'
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./.data:/data/db
+    ports:
+      - '27018:27017'
+  users:
+    build:
+      context: .
+      dockerfile: ./users/Dockerfile
+    volumes:
+      - ./users:/home/node/app/
+    container_name: users
+    command: yarn watch
+    expose:
+      - '4001'
+    ports:
+      - '4001:4001'
+  # cars:
+  #   build:
+  #     context: .
+  #     dockerfile: ./cars/Dockerfile
+  #   volumes:
+  #     - ./cars:/home/node/app/
+  #   container_name: cars
+  #   command: yarn watch
+  #   expose:
+  #     - '4002'
+  #   ports:
+  #     - '4002:4002'
+  gateway:
+    build:
+      context: .
+      dockerfile: ./gateway/Dockerfile
+    volumes:
+      - ./gateway:/home/node/app/
+    container_name: gateway
+    command: yarn watch
+    expose:
+      - '4000'
+    ports:
+      - '4000:4000'
+    depends_on:
+      - users
+      # - cars

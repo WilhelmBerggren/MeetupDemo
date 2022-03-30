@@ -1,0 +1,28 @@
+{
+  "name": "users",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "watch": "nodemon ./src/index.ts --watch .",
+    "codegen": "graphql-codegen --config codegen.yml"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@apollo/subgraph": "^0.4.0",
+    "@graphql-codegen/cli": "^2.6.2",
+    "apollo-datasource": "^3.3.1",
+    "apollo-server": "^3.6.7",
+    "graphql": "^16.3.0",
+    "mongoose": "^6.2.9",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/typescript": "2.4.8",
+    "@graphql-codegen/typescript-document-nodes": "2.2.8",
+    "@graphql-codegen/typescript-resolvers": "2.6.1",
+    "@graphql-codegen/typescript-mongodb": "2.3.6",
+    "@graphql-codegen/cli": "2.6.2"
+  }
+}

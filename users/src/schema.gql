@@ -1,0 +1,18 @@
+type Query {
+  user(id: ID!): User
+  users: [User]
+}
+
+type User @key(fields: "id") {
+  id: ID!
+  username: String!
+}
+
+input UserInput {
+  username: String!
+}
+
+type Mutation {
+  addUser(userInput: UserInput!): User
+  removeUser(id: ID!): Boolean
+}
