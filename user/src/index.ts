@@ -17,9 +17,16 @@ const resolvers = {
       await newUser.save();
       return newUser;
     },
+    updateUser: async (_: undefined, { user }: { user: User }) => {
+      if (user.id === undefined) {
+        return user;
+      }
+      await Users.updateOne({ id: user.id }, { $set: user });
+      return Users.findOne({ id: user.id });
+    },
     async removeUser(_, { id }) {
       await Users.deleteOne({ id });
-      return true;
+      return id;
     },
   },
   Query: {
@@ -34,8 +41,8 @@ const resolvers = {
     },
   },
   User: {
-    async __resolveReference(user, { fetchUserById }) {
-      return fetchUserById(user.id);
+    async __resolveReference({ id }) {
+      return Users.findOne({ id });
     },
   },
 };

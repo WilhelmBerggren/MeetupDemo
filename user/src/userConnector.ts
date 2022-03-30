@@ -10,6 +10,7 @@ db.on("error", () => {
 });
 
 export type User = {
+  id: string;
   username: String;
 };
 

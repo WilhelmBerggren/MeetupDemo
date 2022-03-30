@@ -9,11 +9,14 @@ db.on("error", () => {
 });
 
 export type Car = {
+  id: String;
   model: String;
+  userId: String;
 };
 
 const carSchema = new mongoose.Schema<Car>({
   model: String,
+  userId: String,
 });
 
 const Cars = mongoose.model<Car>("Cars", carSchema);

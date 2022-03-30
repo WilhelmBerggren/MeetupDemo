@@ -6,16 +6,18 @@ type Query {
 type Car @key(fields: "id userId") {
   id: ID!
   model: String!
-  userId: ID!
+  userId: ID
   user: User
 }
 
 input CarInput {
   model: String!
+  userId: String!
 }
 
 type Mutation {
   addCar(carInput: CarInput!): Car
+  updateCar(id: ID!): Car
   removeCar(id: ID!): Boolean
 }
 
