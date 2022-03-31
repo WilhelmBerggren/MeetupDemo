@@ -1,0 +1,79 @@
+mutation AddUser($userInput: UserInput!) {
+  addUser(userInput: $userInput) {
+    id
+    username
+  }
+}
+
+mutation removeUser($removeUserId: ID!) {
+  removeUser(id: $removeUserId)
+}
+
+query findUser($userId: ID!) {
+  user(id: $userId) {
+    username
+    id
+    cars {
+      id
+      model
+      user {
+        username
+      }
+    }
+  }
+}
+
+query Users {
+  users {
+    id
+    username
+    cars {
+      id
+      model
+      user {
+        id
+        username
+      }
+    }
+  }
+}
+
+mutation AddCar($carInput: CarInput!) {
+  addCar(carInput: $carInput) {
+    id
+    model
+    userId
+    user {
+      id
+      username
+    }
+  }
+}
+
+mutation removeCar($removeCarId: ID!) {
+  removeCar(id: $removeCarId)
+}
+
+query findCar($carId: ID!) {
+  car(id: $carId) {
+    id
+    model
+    userId
+    user {
+      id
+      username
+    }
+  }
+}
+
+query cars {
+  cars {
+    id
+    model
+    userId
+    user {
+      id
+      username
+    }
+  }
+}

@@ -10,3 +10,9 @@ generates:
       - "typescript-resolvers"
       - "typescript-mongodb"
       - "typescript-document-nodes"
+  src/generated/mongo.ts:
+    config:
+      federation: true
+    plugins:
+      - "typescript"
+      - "typescript-mongodb"

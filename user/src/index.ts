@@ -1,15 +1,16 @@
 import { ApolloServer, gql } from "apollo-server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { readFileSync } from "fs";
-import { User, Users } from "./db";
+import { Users } from "./db";
+import { Resolvers, User, UserInput } from "./generated/graphql";
 
 const schema = readFileSync("./src/schema.gql", "utf-8");
 
 const typeDefs = gql(schema);
 
-const resolvers = {
+const resolvers: Resolvers = {
   Mutation: {
-    async addUser(_, { userInput }: { userInput: User }) {
+    async addUser(_, { userInput }: { userInput: UserInput }) {
       console.log({ userInput });
       const newUser = new Users({
         ...userInput,
@@ -18,12 +19,12 @@ const resolvers = {
       await newUser.save();
       return newUser;
     },
-    updateUser: async (_: undefined, { user }: { user: User }) => {
-      if (user.id === undefined) {
-        return user;
+    updateUser: async (_, { id }) => {
+      if (id === undefined) {
+        return null;
       }
-      await Users.updateOne({ id: user.id }, { $set: user });
-      return Users.findOne({ id: user.id });
+      await Users.updateOne({ id: id }, { $set: {} });
+      return Users.findOne({ id: id });
     },
     async removeUser(_, { id }) {
       await Users.deleteOne({ id });
@@ -36,9 +37,6 @@ const resolvers = {
     },
     async user(_, { id }) {
       return Users.findOne({ id });
-    },
-    async me() {
-      return { id: "1", username: "@ava" };
     },
   },
   User: {

@@ -1,7 +1,8 @@
+import { gql, useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCarQuery } from "../../../generated/graphql";
+import { CarDocument, CarQuery, useCarQuery } from "../../../generated/graphql";
 
 const CarPage: NextPage = () => {
   const router = useRouter();
