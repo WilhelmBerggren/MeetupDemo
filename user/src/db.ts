@@ -15,7 +15,10 @@ export type User = {
 };
 
 const userSchema = new mongoose.Schema<User>({
-  username: String,
+  username: {
+    required: true,
+    type: String,
+  },
 });
 
 const Users = mongoose.model<User>("Users", userSchema);

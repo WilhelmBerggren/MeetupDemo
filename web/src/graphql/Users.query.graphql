@@ -1,0 +1,10 @@
+query Users {
+  users {
+    id
+    username
+    cars {
+      id
+      model
+    }
+  }
+}

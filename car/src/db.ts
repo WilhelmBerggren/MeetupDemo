@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Car } from "./generated/graphql";
 
 mongoose.connect("mongodb://mongo:27017");
 
@@ -8,15 +9,15 @@ db.on("error", () => {
   console.error("MongoDB connection error:");
 });
 
-export type Car = {
-  id: String;
-  model: String;
-  userId: String;
-};
-
 const carSchema = new mongoose.Schema<Car>({
-  model: String,
-  userId: String,
+  model: {
+    required: true,
+    type: String,
+  },
+  userId: {
+    required: true,
+    type: String,
+  },
 });
 
 const Cars = mongoose.model<Car>("Cars", carSchema);

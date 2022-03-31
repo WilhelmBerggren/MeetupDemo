@@ -1,7 +1,7 @@
 import { ApolloServer, gql } from "apollo-server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { readFileSync } from "fs";
-import { User, Users } from "./userConnector";
+import { User, Users } from "./db";
 
 const schema = readFileSync("./src/schema.gql", "utf-8");
 
@@ -10,6 +10,7 @@ const typeDefs = gql(schema);
 const resolvers = {
   Mutation: {
     async addUser(_, { userInput }: { userInput: User }) {
+      console.log({ userInput });
       const newUser = new Users({
         ...userInput,
       });

@@ -7,6 +7,8 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
-      - "typescript-graphql-files-modules"
-      - "typescript-document-nodes"
       - "fragment-matcher"
+    config:
+      federation: true
+      reactApolloVersion: 3
+      withHooks: true

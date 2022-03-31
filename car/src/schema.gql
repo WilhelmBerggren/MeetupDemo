@@ -23,5 +23,5 @@ type Mutation {
 
 extend type User @key(fields: "id") {
   id: ID! @external
-  cars: [Car]
+  cars: [Car!]
 }
