@@ -31,8 +31,6 @@ class DocumentWithApollo extends Document {
 
     const apolloState = apolloClient.extract();
 
-    console.log({ state: JSON.stringify(apolloState, null, 2) });
-
     console.info(`Render Time: ${Date.now() - startTime} milliseconds.`);
 
     return { ...initialProps, apolloState };

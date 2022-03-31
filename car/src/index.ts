@@ -11,7 +11,6 @@ const typeDefs = gql(schema);
 const resolvers: Resolvers = {
   Mutation: {
     async addCar(_, { carInput }) {
-      console.log({ carInput });
       const newCar = new Cars({
         ...carInput,
       });
@@ -46,7 +45,6 @@ const resolvers: Resolvers = {
       return Cars.findOne({ id });
     },
     user(car) {
-      console.log({ car });
       if (!car.userId) {
         return null;
       }

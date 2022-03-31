@@ -12,7 +12,6 @@ const UserPage: NextPage = () => {
   });
   const { user } = data || {};
   const { cars } = user || {};
-  console.log(data);
 
   return (
     <div>
